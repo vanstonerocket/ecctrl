@@ -14,8 +14,9 @@ import ShotCube from "./ShotCube";
 import { useControls } from "leva";
 import CharacterModel from "./CharacterModel";
 import React, { useEffect, useState } from "react";
+import { AvatarRPM } from "./AvatarRPM";
 
-export default function Experience() {
+export default function Experience({ avatarId }) {
   /**
    * Delay physics activate
    */
@@ -84,8 +85,18 @@ export default function Experience() {
             disableControl={disableControl}
             disableFollowCam={disableFollowCam}
           >
-            {/* Replace your model here */}
-            <CharacterModel />
+            {/* Character visual */}
+            {avatarId ? (
+              <group position={[0, -0.9, 0]} rotation={[0, Math.PI, 0]}>
+                <AvatarRPM
+                  avatarId={avatarId}
+                  urlParams="?lod=2&textureAtlas=512&textureFormat=webp"
+                  scale={1}
+                />
+              </group>
+            ) : (
+              <CharacterModel />
+            )}
           </Ecctrl>
         </KeyboardControls>
 
@@ -112,7 +123,7 @@ export default function Experience() {
 
         {/* Shoting cubes */}
         <ShotCube />
-      </Physics >
+      </Physics>
     </>
   );
 }
