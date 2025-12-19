@@ -15,6 +15,7 @@ import { useControls } from "leva";
 import CharacterModel from "./CharacterModel";
 import React, { useEffect, useState } from "react";
 import { AvatarRPM } from "./AvatarRPM";
+import { AvatarAnimator } from "./AvatarAnimator";
 
 export default function Experience({ avatarId }) {
   /**
@@ -73,6 +74,9 @@ export default function Experience({ avatarId }) {
         <KeyboardControls map={keyboardMap}>
           {/* Character Control */}
           <Ecctrl
+            capsuleRadius={0.35}
+            capsuleHalfHeight={0.9}
+            floatHeight={0.2}
             debug
             animated
             followLight
@@ -87,11 +91,16 @@ export default function Experience({ avatarId }) {
           >
             {/* Character visual */}
             {avatarId ? (
-              <group position={[0, -0.9, 0]} rotation={[0, Math.PI, 0]}>
-                <AvatarRPM
+              <group position={[0, -0.9, 0]}>
+                <AvatarAnimator
                   avatarId={avatarId}
-                  urlParams="?lod=2&textureAtlas=512&textureFormat=webp"
+                  urlParams=""
                   scale={1}
+                  animPaths={{
+                    idle: "/F_Standing_Idle_001.fbx",
+                    walk: "/M_Walk_001.fbx",
+                    run: "/M_Run_001.fbx",
+                  }}
                 />
               </group>
             ) : (
